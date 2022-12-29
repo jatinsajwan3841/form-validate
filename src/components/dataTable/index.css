@@ -1,0 +1,22 @@
+.val-table{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 10px 30px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px grey;
+    background-color: #fefefe;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
