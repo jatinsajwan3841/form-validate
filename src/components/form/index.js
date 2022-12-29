@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DataTable from "../dataTable";
 import "./index.css";
 
 const ValidatedForm = () => {
-    const [finalData, setFinalData] = useState([]);
+    const [finalData, setFinalData] = useState(() => {
+        // getting local stored value
+        const saved = localStorage.getItem("finalDat");
+        const initialValue = JSON.parse(saved);
+        return initialValue || [];
+    });
     const [errors, setErrors] = useState({
         fName: "",
         lName: "",
@@ -16,8 +21,10 @@ const ValidatedForm = () => {
     );
 
     const handleChange = (event, finalCheck) => {
+        //event.target has input field, finalCheck is for submit time verification
         const { name, value } = finalCheck || event.target;
         let err = "";
+        //can have same check by controlled input fields too but chose this as it seemed more efficient(not sure if it so)
         switch (name) {
             case "fName":
                 err =
@@ -50,6 +57,7 @@ const ValidatedForm = () => {
         let valid = true;
         let i = 0;
         let dat = {};
+        // e.target has form, starting elements are array of input fields
         while (i < 4) {
             dat = { ...dat, [e.target[i].name]: [e.target[i].value] };
             valid = handleChange(null, {
@@ -60,8 +68,14 @@ const ValidatedForm = () => {
         }
         if (valid) {
             setFinalData((prev) => [...prev, dat]);
+            e.target.reset();
         }
     };
+
+    useEffect(() => {
+        // storing in local storage
+        localStorage.setItem("finalDat", JSON.stringify(finalData));
+    }, [finalData]);
 
     return (
         <div>
