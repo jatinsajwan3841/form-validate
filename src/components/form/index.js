@@ -59,7 +59,7 @@ const ValidatedForm = () => {
         let dat = {};
         // e.target has form, starting elements are array of input fields
         while (i < 4) {
-            dat = { ...dat, [e.target[i].name]: [e.target[i].value] };
+            dat = { ...dat, [e.target[i].name]: e.target[i].value };
             valid = handleChange(null, {
                 name: e.target[i].name,
                 value: e.target[i].value,
@@ -70,6 +70,14 @@ const ValidatedForm = () => {
             setFinalData((prev) => [...prev, dat]);
             e.target.reset();
         }
+    };
+
+    const handleDelete = (ind) => {
+        setFinalData((prev) => {
+            let temp = [...prev];
+            temp.splice(ind, 1);
+            return temp;
+        });
     };
 
     useEffect(() => {
@@ -155,7 +163,9 @@ const ValidatedForm = () => {
                 </div>
                 <input type="submit" className="submit" value="submit" />
             </form>
-            {finalData.length > 0 && <DataTable valDat={finalData} />}
+            {finalData.length > 0 && (
+                <DataTable valDat={finalData} handleDelete={handleDelete} />
+            )}
         </div>
     );
 };

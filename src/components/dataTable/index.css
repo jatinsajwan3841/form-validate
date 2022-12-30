@@ -1,5 +1,4 @@
 .val-table{
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items:center;
@@ -9,6 +8,12 @@
     border-radius: 10px;
     box-shadow: 0 0 10px grey;
     background-color: #fefefe;
+    overflow-y: auto;
+}
+
+table{
+    display: block;
+    max-width: 99%;
 }
 
 td, th {
@@ -19,4 +24,9 @@ td, th {
   
 tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+.del-button{
+    width: 20px;
+    cursor:pointer;
 }
